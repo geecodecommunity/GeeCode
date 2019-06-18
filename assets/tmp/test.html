@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<textarea name="" id="textarea" cols="30" rows="10">import d</textarea>
+
+<script src="/assets/lib/jquery.min.js"></script>
+<script>
+    function GetJsonData(pos_line, pos_column) {
+        var code = $('#textarea').val();
+        return {
+            text: code,
+            pos_line:pos_line,
+            pos_column:pos_column,
+            filename:"example.py"
+        }
+    }
+    function test_completions(line, column) {
+        return $.ajax({
+            type: "POST",
+            url: "/codeapi/completions",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(GetJsonData(line, column)),
+            dataType: "json",
+            success: function (message) {
+
+            },
+            error: function (message) {
+
+            }
+        })
+    }
+</script>
+
+</body>
+</html>
