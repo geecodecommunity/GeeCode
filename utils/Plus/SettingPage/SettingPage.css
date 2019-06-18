@@ -1,0 +1,147 @@
+#SettingPage {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background: #191E23;
+}
+
+.SettingPage_More {
+    width: 100%;
+    height: 55px;
+    line-height: 55px;
+    font-size: 18px;
+    color: #94A8B1;
+    padding: 0 15px 0 30px;
+    position: relative;
+    cursor: pointer;
+}
+
+.SettingPage_More_before {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-left: #94A8B1 solid 2px;
+    border-bottom: #94A8B1 solid 2px;
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: rotate(45deg) translateY(-72%);
+    transform-origin: 50% 50%;
+}
+
+.SettingPage_VScode {
+    width: 100%;
+    height: 164px;
+    box-sizing: border-box;
+    padding: 0 15px;
+    /* position: relative; */
+}
+
+.SettingPage_VScode_Tips {
+    width: 100%;
+    height: 55px;
+    line-height: 55px;
+    font-size: 15px;
+    color: #94A8B1;
+}
+
+.SettingPage_VScode_con {
+    width: 100%;
+    height: 54px;
+    background: #202932;
+    border-radius: 10px;
+    display: flex;
+}
+
+.SettingPage_img {
+    display: inline-block;
+    width: 54px;
+    height: 54px;
+}
+
+.SettingPage_img.img1 {
+    background: url('../../../assets/img/VScode.png') no-repeat;
+    background-size: cover;
+}
+
+.SettingPage_img_title {
+    font-size: 18px;
+    color: #94A8B1;
+    line-height: 54px;
+}
+
+.SettingPage_img_btn {
+    flex: 1;
+    color: #CFE5FC;
+    cursor: pointer;
+}
+
+.SettingPage_img_btn span {
+    display: inline-block;
+    padding: 6px 15px;
+    background: #007ACC;
+    border-radius: 5px;
+    float: right;
+    margin: 11px 10px 0 0;
+}
+
+.SettingPage_VScode_title {
+    font-size: 13px;
+    color: #6B6B6B;
+    margin-top: 15px;
+}
+
+.SettingPage_installed {
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    padding: 0 15px;
+    color: #94A8B1;
+}
+
+.SettingPage_installed_title {
+    width: 100%;
+    height: 55px;
+    line-height: 55px;
+    font-size: 15px;
+}
+
+.SettingPage_plugins_btn {
+    flex: 1;
+    color: #CFE5FC;
+    cursor: pointer;
+}
+
+.SettingPage_plugins_btn span {
+    display: inline-block;
+    padding: 6px 15px;
+    border-radius: 5px;
+    float: right;
+    margin: 11px 10px 0 0;
+    border: 1px solid #fff;
+}
+
+.installed {
+    margin-bottom: 10px;
+}
+
+/*遮罩层*/
+.SettingPage_mask {
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.SettingPage_mask div {
+    width: 60%;
+    height: 200px;
+    background: url("../../../assets/img/timg.gif") no-repeat;
+    background-size: 100%;
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    transform: translate(-50%, 0);
+}

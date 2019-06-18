@@ -1,0 +1,294 @@
+#LoginPage {
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    background-image: linear-gradient(180deg, rgba(15, 47, 96, 1) 0%, rgba(18, 25, 43, 1) 100%);
+    /* background-image: linear-gradient(to bottom,#261477,#3F5FF1); */
+}
+
+/* logo */
+.LoginPage_logo {
+    width: 100%;
+    height: 27%;
+    /* background: pink; */
+    position: relative;
+}
+
+.LoginPage_logo_img {
+    width: 176px;
+    height: 24px;
+    background: url("../../assets/img/logo@2x.png") no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 66%;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+/* 登录注册 */
+.LoginPage_login {
+    width: 100%;
+    height: auto;
+    padding: 0 60px;
+    box-sizing: border-box;
+}
+
+.LoginPage_login_input {
+    width: 100%;
+    padding: 14px 0 14px 40px;
+    border-bottom: 1px solid #4D6080;
+    /* border-radius: 6px; */
+    position: relative;
+}
+
+input::-webkit-input-placeholder {
+    color: #97B4E7;
+    font-size: 14px;
+}
+
+.LoginPage_login_input.number {
+    padding-left: 72px;
+}
+
+.LoginPage_login_input.number::before {
+    content: '+86';
+    display: block;
+    position: absolute;
+    top: 51%;
+    left: 50px;
+    transform: translateY(-50%);
+}
+
+.LoginPage_login_input_span1 {
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+    background: url("../../assets/img/number@2x.png") no-repeat center center;
+    background-size: contain;
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.LoginPage_login_input_span2 {
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+    background: url("../../assets/img/lock@2x\(1\).png") no-repeat center center;
+    background-size: contain;
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.LoginPage_login_input_span3 {
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+    background: url("../../assets/img/verification@2x.png") no-repeat center center;
+    background-size: contain;
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.LoginPage_login_input input {
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    background: rgba(255, 255, 255, 0);
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+.LoginPage_login_Verification {
+    width: 89px;
+    height: 29px;
+    line-height: 29px;
+    border: 0;
+    outline-style: none;
+    color: #6B9AFF;
+    font-size: 14px;
+    background: #25416E;
+    border-radius: 3px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.LoginPage_login_btn {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 19px;
+    text-align: center;
+    background: #296BFC;
+    margin: 72px 0 0px;
+    cursor: pointer;
+    /* border-radius: 6px; */
+}
+
+.LoginPage_login_tip {
+    width: 100%;
+    font-size: 14px;
+    color: #d23f31;
+    background-color: #ffdce0;
+    border: 1px solid rgba(27, 31, 35, .15);
+    border-radius: 2px;
+    margin: 10px 0 0px;
+}
+
+.LoginPage_login_tip ul {
+    margin: 5px 30px;
+    text-align: left;
+    line-height: 21px;
+}
+
+.LoginPage_login_tip ul li {
+    color: #d23f31;
+    list-style-type: disc;
+}
+
+.LoginPage_login_btn:hover {
+    background: #A0A8B1;
+}
+
+.LoginPage_login_btn_p {
+    text-align: center;
+    margin: 10px 0 0;
+    /* text-decoration: underline; */
+    font-size: 14px;
+}
+
+.loginPageSet {
+    float: left;
+}
+
+.loginPageSet a {
+    color: #4F86FD;
+    border: 0;
+}
+
+.loginPageSkip {
+    float: right;
+    cursor: pointer;
+}
+
+.LoginPage_login_btn_p:hover {
+    text-decoration: none;
+}
+
+/* 安装IDE及插件部分 */
+.LoginPage_setup,
+.LoginPage_restart {
+    padding: 0 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.LoginPage_setup h2,
+.LoginPage_restart h2 {
+  font-size: 23px;
+  line-height: 1;
+  margin-top: 50px;
+}
+
+.LoginPage_setup p,
+.LoginPage_restart p {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 15px
+}
+
+.LoginPage_setup button,
+.LoginPage_restart button {
+    width: 100%;
+    line-height: 40px;
+    font-size: 18px;
+    color: #fff;
+    border: 0;
+    border-radius: 6px;
+    padding: 0;
+    margin: 0;
+    background-color: #1FAFFE;
+    cursor: pointer
+}
+
+.LoginPage_setup button:hover,
+.LoginPage_restart button:hover{
+    background-color: #71CCFE;
+}
+
+.LoginPage_setup_selectbox {
+    border-radius: 2px;
+    background-color: #3634A0;
+    background-image: linear-gradient(to bottom ,#3634A0,#4151D0);
+    padding: 10px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.LoginPage_setup_selectbox_row,
+.LoginPage_restart_row {
+    display: flex;
+    align-items: center;
+}
+.restart_row {
+    margin-bottom: 10px;
+}
+.LoginPage_setup_selectbox_row h3 ,
+.LoginPage_restart_row h3 {
+    font-size: 17px;
+    font-weight: normal;
+    flex: 1;
+}
+
+.select_checkbox +label{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    background: #2F3390;
+}
+.select_checkbox:checked +label::before{
+    display: block;
+    content: "\2714";
+    text-align: center;
+    font-size: 20px;
+    color: white;
+}
+
+.select_checkbox {
+    display: none;
+}
+
+.vscode {
+    font-size: 30px !important;
+    color: #007ACC;
+    margin-right: 20px; 
+}
+
+/*遮罩层*/
+.SettingPage_mask {
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.SettingPage_mask div {
+    width: 60%;
+    height: 200px;
+    background: url("../../assets/img/timg.gif") no-repeat;
+    background-size: 100%;
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    transform: translate(-50%, 0);
+}

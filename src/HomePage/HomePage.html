@@ -1,0 +1,160 @@
+<div id="HomePage">
+    <!--logo-->
+    <div class="logo">
+        <span class="feedback" @click.prevent="descriptionKey($event)">
+            <a class="external_link icon_img" href="#http://geecall.com/article/1551354717878">
+                <!-- <span class="icon_img"></span> -->
+                {{ feedback }}
+                <!-- <span class="iconfont icon-wenhao"></span> -->
+            </a>
+        </span>
+        <span class="logo_img"></span>
+    </div>
+    <!--头部搜索-->
+    <div class="header">
+        <div class="search">
+            <input type="text" v-model="value" placeholder="请输入关键字..." @input="searchClick()" @keyup.27="cancleList()"
+                @keyup.38="moveCursor('up')" @keyup.40="moveCursor('down')" @keyup.13="keyGetData()" @keydown.9.prevent="tabComplet($event)" />
+            <span class="search_icon iconfont icon-search"></span>
+        </div>
+
+        <div class="btn autoFollowCursorBtn" @click="btnClick()" :style="{background: color}">
+            <!-- <span :class="['before', {'active': isbtn}]"></span> -->
+            <span class="before iconfont icon-zanting" v-show="!isbtn"></span>
+            <span class="before iconfont icon-yanjing" :class="[{'active': isbtn}]" v-show="isbtn"></span>
+            <span class="after">{{ btnTitle1 }}</span>
+        </div>
+
+        <div class="list-box" v-if="Boolean(value)">
+            <ul class="list" ref="list" @click="clickGetData($event)">
+                <li v-for="(item,index) in keyList" :key="index" v-bind:class="{active:active == item}" @mouseover="selectedLi(item)"
+                    @click="clickGetData()" v-if="index < 10">
+                    {{ item }}
+                </li>
+            </ul>
+            <p class="empty" v-if="notFound">
+                未找到{{ value }}的结果。尝试搜索其他关键字
+            </p>
+            <div class="tip-bar">↑ ↓ Tab Esc</div>
+        </div>
+    </div>
+
+    <!--中间主体展示部分-->
+    <div :class="mainShow" v-bind:style="{height:mainHeight + 'px'}" v-if="isShow">
+        <div class="title">
+            <div class="title_name">
+                <span>{{ readDoc.readDocTitle }}</span>
+                <span>{{ readDoc.readDocType }}</span>
+            </div>
+
+            <div class="title_btn">
+                <div :class="title_btn_leftObj" @click="title_btn_left(readDoc.readDocTitle, 'left')"></div>
+                <div :class="title_btn_rightObj" @click="title_btn_right(readDoc.readDocTitle, 'right')"></div>
+            </div>
+        </div>
+
+        <div class="popular" v-if="JSON.stringify(keyChildren.children) !== '[]' && keyChildren.children">
+            <div class="popular_title">{{ keyChildren.title }}</div>
+            <ul>
+                <li v-for="(item, index) in keyChildren.children" :key="index" :style="index % 2 == 0 ? '' : libg" v-if="index < listLength && keyChildren">
+                    <span @click="popularClick(item)">{{
+                        item.name ? item.name : item.id
+                        }}</span>
+                    <span>{{ item.value ? item.value[0].kind : item.kind }}</span>
+                </li>
+            </ul>
+            <p @click="moreClick()" v-if="total_members > 5">{{ see }}</p>
+        </div>
+
+        <div class="signature" v-if="parameters.args">
+            <div class="signature_title">{{ parameters.title }}</div>
+            <ul>
+                <li v-for="(item, index) in parameters.args" :key="index">
+                    <span>{{ item.name }}</span><span v-html="item.language_details.python.default_value ? '=' + item.language_details.python.default_value[0].repr : ''"></span>
+                    <span v-html="index === parameters.args.length - 1 ? '' : ','"></span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="signature" v-if="JSON.stringify(kwarg.kwarg_parameters) !== '[]' && kwarg.kwarg_parameters">
+            <div class="signature_title">
+                {{ kwarg.title
+                }}<span class="kwargActive" @click="kwargActive">{{
+                    iskwargActive
+                    }}</span>
+            </div>
+            <ul v-show="iskwarg">
+                <li v-for="(item, index) in kwarg.kwarg_parameters" :key="index">
+                    <span>{{ item.name }}</span><span v-for="(childTiem, childIndex) in item.inferred_value" :key="childIndex">:
+                        {{ childTiem.repr }}</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="signature" v-if="JSON.stringify(signatures.args) !== '[]' && signatures.args">
+            <div class="signature_title">{{ signatures.title }}</div>
+            <ul class="ul_color">
+                <li v-for="(item, index) in signatures.args" :key="index">
+                    {{ signatures.func }}(
+                    <span class="ul_span" v-for="(childItem,childIndex) in item.args" :key="childIndex">
+                        <!-- {{childIndex === item.args.length - 1 ? childItem.name : childItem.name + ','}} -->
+                        {{ childItem.name
+                        }}<span v-html="childIndex === item.args.length - 1 ? '' : ','"></span>
+                    </span>
+                    )
+                </li>
+            </ul>
+        </div>
+
+        <div class="someone" v-if="list.someone">
+            <div class="someone_title">{{ list.someone.title }}</div>
+            <ul>
+                <li v-for="(item, index) in list.someone.listChild" :key="index">
+                    <span v-for="(itemChild, indexChild) in item" :key="indexChild">{{
+                        itemChild
+                        }}</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 描述 -->
+        <div class="description" v-if="readDoc.description_html">
+            <div class="description_title">{{ readDoc.title }}</div>
+            <div class="description_content">
+                <!-- <div class="description_content_link" v-html="readDoc.description_text"></div> -->
+                <div class="description_content_content" v-html="readDoc.description_html" @click="descriptionKey($event)"></div>
+
+                <!-- <ul>
+                    <li v-for="(item, index) in list.description.listChild" :key="index" v-if="list.description.listChild">
+                        <p class="li_p">{{item.title}}</p>
+                        <div class="li_content" v-html="item.content"></div>
+                    </li>
+                </ul> -->
+            </div>
+        </div>
+    </div>
+
+    <!--如果没有数据显示此元素-->
+    <div :class="welcomeObj">
+        <div class="welcome_title">
+            {{ welcome_title }}
+        </div>
+
+        <div class="welcome_con">
+            <span class="img1 iconfont icon-biaopan"></span>
+            <span class="span_con">{{ welcome_con1 }}</span>
+        </div>
+
+        <div class="welcome_con">
+            <span class="img2 iconfont icon-search"></span>
+            <span class="span_con span_con2">{{ welcome_con2 }}</span>
+        </div>
+    </div>
+
+    <!-- 底部设置 -->
+    <div class="footer">
+         <span class="iconfont icon-shezhi img_setting" @click="toSetting"></span>
+    </div>
+    <!--搜索时产生的遮罩层-->
+    <div class="mask" v-if="value" @click="value = '' "></div>
+</div>

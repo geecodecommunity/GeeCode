@@ -1,0 +1,110 @@
+<div id="LoginPage" v-if="block">
+    <!-- 登录页面logo -->
+    <div class="LoginPage_logo" v-if='islogo'>
+        <div class="LoginPage_logo_img">
+
+        </div>
+    </div>
+
+    <!-- 注册部分 -->
+    <div class="LoginPage_login" v-if="show('register')">
+        <div class="LoginPage_login_input number">
+            <span class="LoginPage_login_input_span1"></span>
+            <input type="text" v-model="number" placeholder="手机号">
+        </div>
+        <div class="LoginPage_login_input">
+            <span class="LoginPage_login_input_span2"></span>
+            <input type="password" v-model="password" placeholder="设置密码 (不少于6位)">
+        </div>
+        <div class="LoginPage_login_input">
+            <span class="LoginPage_login_input_span3"></span>
+            <input type="text" v-model="verification" placeholder="验证码">
+            <button @click="loginPageVerification" class="LoginPage_login_Verification"
+                :disabled="disabled">{{verificationCon}}</button>
+        </div>
+
+        <div>
+            <div class="LoginPage_login_btn" @click="loginPageBtn">立即注册</div>
+            <div class="LoginPage_login_tip" v-if="message">
+                <ul>
+                    <li>{{message}}</li>
+                </ul>
+            </div>
+            <div class="LoginPage_login_btn_p">
+                <span class="loginPageSet">
+                    已有账号?
+                    <a @click="loginPageSet('login')"> 直接登录</a>
+                </span>
+                <span class="loginPageSkip" @click="loginPageSkip">跳过注册</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 登录部分 -->
+    <div class="LoginPage_login" v-if="show('login') ">
+        <div class="LoginPage_login_input number">
+            <span class="LoginPage_login_input_span1"></span>
+            <input type="text" v-model="number" placeholder="手机号码">
+        </div>
+        <div class="LoginPage_login_input">
+            <span class="LoginPage_login_input_span2"></span>
+            <input type="password" v-model="password" placeholder="请输入密码">
+        </div>
+
+        <div>
+            <div class="LoginPage_login_btn" @click="loginPageIn">登录</div>
+            <div class="LoginPage_login_tip" v-if="message">
+                <ul>
+                    <li>{{message}}</li>
+                </ul>
+            </div>
+            <div class="LoginPage_login_btn_p">
+                <span class="loginPageSet">
+                    已有账号,
+                    <a @click="loginPageSet('register')"> 免费注册</a>
+                </span>
+                <span class="loginPageSkip" @click="loginPageSkip">跳过注册</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 安装插件及IDE部分 -->
+    <div class="LoginPage_setup" v-if="show('setup')">
+        <h2>GeeCode Setup</h2>
+        <p>我们需要设置一些集成以使GeeCode正常工作。</p>
+        <p>首先，让我们选择要在此计算机上安装的编辑器插件。</p>
+        <div class="LoginPage_setup_selectbox">
+            <div class="LoginPage_setup_selectbox_row" v-if="vsRow">
+                <span class="vscode iconfont icon-vscode"></span>
+                <h3>Visual Studio Code</h3>
+                <input type="checkbox" id="checkbox_vscode" class="select_checkbox" v-bind:checked="checkVsIpt">
+                <label for="checkbox_vscode"></label>
+            </div>
+            <div class="LoginPage_setup_selectbox_row" v-if="gcRow">
+                <span class="vscode iconfont icon-vscode"></span>
+                <h3>Geecode-python</h3>
+                <input type="checkbox" id="checkbox_gcodepy" class="select_checkbox" v-bind:checked="checkPluginIpt">
+                <label for="checkbox_gcodepy"></label>
+            </div>
+        </div>
+        <p>注意：安装可能需要一分钟</p>
+        <button class="LoginPage_setup_btn" @click='install'>安装</button>
+    </div>
+    <!-- 重启IDE -->
+    <div class="LoginPage_restart" v-if="show('setup2')">
+        <h2>重启你的编辑器</h2>
+        <p>这只是一个提示，你需要重新启动以下IDE来激活GeeCode</p>
+        <div class="LoginPage_restart_row">
+            <span class="vscode iconfont icon-vscode"></span>
+            <h3>Visual Studio Code</h3>
+        </div>
+        <button class="LoginPage_restart_btn">继续</button>
+    </div>
+
+    <!--安装插件和软件时显示的遮罩层-->
+    <div class="SettingPage_mask" v-if="mask">
+        <div></div>
+    </div>
+</div>

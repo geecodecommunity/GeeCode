@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>GeeCode</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/nativize.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/about.css">
+    <link rel="stylesheet" href="assets/css/nav.css">
+    <link rel="stylesheet" href="assets/css/section.css">
+    <link rel="stylesheet" href="assets/css/demo.css">
+    <link rel="stylesheet" href="assets/css/github.css">
+    <link rel="stylesheet" href="utils/Plus/LoginPage/LoginPage.css">
+    <link rel="stylesheet" href="utils/Plus/HomePage/HomePage.css">
+    <link rel="stylesheet" href="utils/Plus/SettingPage/SettingPage.css">
+    <link rel="stylesheet" href="utils/Plus/SearchPage/SearchPage.css">
+    <link rel="stylesheet" href="assets/icon/iconfont.css">
+</head>
+
+<body>
+    <div id="mainBody">
+        <router-view></router-view>
+    </div>
+</body>
+
+<script>
+    var Vue = require('./assets/lib/vue.min');
+    var VueRouter = require('./assets/lib/vue-router.min');
+    var LoginPage = require('./utils/Plus/LoginPage/LoginPage').initPage(Vue);
+    var HomePage = require('./utils/Plus/HomePage/HomePage').initPage(Vue);
+    // var SettingPage = require('./utils/Plus/SettingPage/SettingPage').initPage(Vue);
+    var SearchPage = require('./utils/Plus/SearchPage/SearchPage').initPage(Vue);
+
+    var router = new VueRouter({
+        mode: "hash", //window.history.pushState ? 'history' : 'hash',
+        routes: [{
+                path: '/login',
+                component: LoginPage
+            },
+            {
+                path: '/home',
+                component: HomePage
+            },
+            // {
+            //     path: '/setting',
+            //     component: SettingPage
+            // },
+            {
+                path: '/search',
+                component: SearchPage
+            },
+            {
+                path: '/*',
+                redirect: "/login"
+            }
+        ],
+        scrollBehavior: function (to, from, savedPosition) {
+            if (savedPosition) {
+                return savedPosition
+            }
+            return {
+                x: 0,
+                y: 0
+            }
+        }
+
+    });
+
+    Vue.prototype.$tip = false
+
+    // 给vue原型挂载ajax方法
+    Vue.prototype.$http = function () {
+        var $ = {
+            get: function (url, data, success, dataType) {
+                /**
+                 * 如果不传第二个参数,第三个参数会变成第二个参数传进来
+                 * 第二个参数是字符串或对象,第三个参数函数
+                 * 判断第二个参数是否为函数,
+                 * 如果是函数那么就把传进来的函数赋值给第三个参数,并把第二个参数赋值为undefined;
+                 *
+                 */
+                if (typeof data == "function") {
+                    dataType = success;
+                    success = data;
+                    data = undefined;
+                }
+
+                var xhr = this.createXhr();
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var result = xhr.responseText;
+
+                        if (dataType == "json") {
+                            result = JSON.parse(result);
+                        }
+
+                        success(result);
+                    }
+                };
+
+                // 判断参数是否为对象
+                if (typeof data == "object") {
+                    data = this.parmas(data);
+                }
+
+                // 判断参数是否为空
+                if (data != undefined) {
+                    url = url + "?" + data;
+                }
+
+                xhr.open("get", url);
+
+                xhr.send(null);
+            },
+            createXhr: function () {
+                var xmlhttp;
+                if (window.XMLHttpRequest) {
+                    xmlhttp = new XMLHttpRequest();
+                } else {
+                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+                }
+                return xmlhttp;
+            },
+            parmas: function (json_obj) {
+                var str = "";
+                for (var key in json_obj) {
+                    str = str + key + "=" + json_obj[key] + "&";
+                }
+                str = str.slice(0, str.length - 1);
+                return str;
+            },
+            post: function (url, data, success, dataType) {
+                /**
+                 * 如果不传第二个参数,第三个参数会变成第二个参数传进来
+                 * 第二个参数是字符串或对象,第三个参数函数
+                 * 判断第二个参数是否为函数,
+                 * 如果是函数那么就把传进来的函数赋值给第三个参数,并把第二个参数赋值为undefined;
+                 *
+                 */
+                if (typeof data == "function") {
+                    success = data;
+                    data = undefined;
+                }
+
+                var xhr = this.createXhr();
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var result = xhr.responseText;
+
+                        if (dataType == "json") {
+                            result = JSON.parse(result);
+                        }
+
+                        success(result,xhr);
+                    }
+                };
+
+                if (typeof data == "object") {
+                    data = this.parmas(data);
+                }
+
+                xhr.open("post", url);
+
+                xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+
+                xhr.send(data);
+            },
+            ajax: function (object) {
+                if (object.type == "get") {
+                    this.get(object.url, object.data, object.success, object.dataType);
+                } else if (object.type == "post") {
+                    this.post(object.url, object.data, object.success, object.dataType);
+                }
+            }
+        };
+        return (this.$ = $);
+    };
+
+    var app = new Vue({
+        el: '#mainBody',
+        router: router
+    });
+    window.ubibiApp = app;
+</script>
+
+</html>

@@ -1,0 +1,61 @@
+<div id="SettingPage">
+    <div class="SettingPage_More" @click="back">
+        <span class="SettingPage_More_before"></span>
+        {{more}}
+    </div>
+
+    <!-- 如果没有安装vscode就显示 -->
+    <!--<div class="SettingPage_VScode" v-if="vscode">-->
+        <!--<div class="SettingPage_VScode_Tips">{{tisp}}</div>-->
+        <!--<div class="SettingPage_VScode_con">-->
+            <!--<span class="SettingPage_img" :class="vsimg"></span>-->
+            <!--<span class="SettingPage_img_title">{{vsName}}</span>-->
+            <!--<span class="SettingPage_img_btn" @click="softwareApp">-->
+                <!--<span>{{vsBtn}}</span>-->
+            <!--</span>-->
+        <!--</div>-->
+        <!--<div class="SettingPage_VScode_title">{{vsTitle}}</div>-->
+    <!--</div>-->
+
+    <!-- 已经安装的编辑器插件 -->
+    <div class="SettingPage_installed" v-if="JSON.stringify(pluginsArr1) !== '{}'">
+        <div class="SettingPage_installed_title">
+            {{pluginsTitle1}}
+        </div>
+        <ul>
+            <li class="SettingPage_VScode_con installed" v-for="(item, index) in pluginsArr1" :key="index">
+                <span class="SettingPage_img" :class="item.img"></span>
+                <span class="SettingPage_img_title">{{item.name}}</span>
+                <span class="SettingPage_plugins_btn" @click="uninstallPlugins">
+                    <span>{{pluginsBtn}}</span>
+                </span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 支持的其他编辑器插件 -->
+    <div class="SettingPage_installed" v-if="JSON.stringify(pluginsArr2) !== '{}'">
+        <div class="SettingPage_installed_title">
+            {{pluginsTitle2}}
+        </div>
+        <ul>
+            <li class="SettingPage_VScode_con installed" v-for="(item, index) in pluginsArr2" :key="index">
+                <span class="SettingPage_img" :class="item.img"></span>
+                <span class="SettingPage_img_title">{{item.name}}</span>
+                <span class="SettingPage_img_btn" @click="installPlugins">
+                    <span>{{vsBtn}}</span>
+                </span>
+            </li>
+        </ul>
+    </div>
+
+    <!--安装插件和软件时显示的遮罩层-->
+    <div class="SettingPage_mask" v-if="mask">
+        <div></div>
+    </div>
+
+    <div class="tip" v-if="tip">
+        请重新启动GeeCodePlus以正常使用VsCode
+        <span class="hide" @click="tip=false">隐藏</span>
+    </div>
+</div>
