@@ -1,0 +1,61 @@
+body,
+p,
+ul,
+li,
+h3 {
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+    font-family: "Microsoft YaHei";
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+a {
+    color: #308ce8;
+    border: 0;
+}
+
+body {
+    -webkit-user-select: text;
+}
+
+input {
+    outline-style: none;
+    border: 0;
+    border: none;
+}
+
+#mainBody {
+    width: 100%;
+    box-sizing: border-box;
+    background: #181f25 url('../../assets/img/Load.gif') no-repeat center 100px;
+    background-size: 50px; 
+}
+
+.tip {
+    width: 90%;
+    height: 60px;
+    line-height: 60px;
+    padding-left: 10px;
+    color: #7A8087;
+    background: #000;
+    border-radius: 10px;
+    box-sizing: border-box;
+    position: fixed;
+    left: 50%;
+    bottom: 35px;
+    transform: translate(-50%, 0);
+}
+
+.tip .hide {
+    color: #ACBED1;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translate(0, -50%);
+}
